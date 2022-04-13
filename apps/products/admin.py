@@ -13,6 +13,7 @@ class ProductColorAdmin(admin.StackedInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     exclude = ['sale_price', 'is_favorite']
+    # Color and Image Fields for product model.
     inlines = [ProductImageAdmin, ProductColorAdmin]
 
     class Meta:

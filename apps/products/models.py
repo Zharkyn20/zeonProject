@@ -9,9 +9,9 @@ class Product(models.Model):
     """
     Product.
     """
-    category = models.ForeignKey(Category, on_delete= models.SET_NULL, null=True, related_name='product')
-    name = models.CharField(max_length= 100)
-    sku = models.CharField(max_length= 100)    # Артикул товара
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='product')
+    name = models.CharField(max_length=100)
+    sku = models.CharField(max_length=100)    # Артикул товара
     price = models.IntegerField()
     sale = models.IntegerField('Скидка в процентах', blank=True, default=0)
     sale_price = models.IntegerField('Цена после скидки', blank=True, default=0)
@@ -24,7 +24,6 @@ class Product(models.Model):
     is_novelty = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False, blank=True)
 
-
     class Meta:
         ordering = ('-id',)
 
@@ -36,12 +35,19 @@ class Product(models.Model):
         price = int(self.price * (100 - self.sale) / 100)
         return price
 
+    def save(self):
+        self.sale_price = self.get_sale()
+        super(Product, self).save()
+
+    def __str__(self):
+        return self.name
+
 
 class ProductImage(models.Model):
     """
     Product images setting class.
     """
-    product = models.ForeignKey(Product, default= None, on_delete=models.CASCADE, null=True, related_name='images')
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE, null=True, related_name='images')
     image = models.ImageField(upload_to='media/products/%Y/%m/%d')
 
     def clean(self):
@@ -57,7 +63,7 @@ class ProductColor(models.Model):
     Product colors setting class.
     """
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE, related_name='colors')
-    color = ColorField(default= '#FF0000')
+    color = ColorField(default='#FF0000')
 
     def clean(self):
         if len(ProductColor.objects.filter(product=self.product)) >= 8:
@@ -65,5 +71,3 @@ class ProductColor(models.Model):
 
     def __str__(self):
         return f"{self.color} - {self.product}"
-
-

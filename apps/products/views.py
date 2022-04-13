@@ -1,4 +1,3 @@
-
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Product
@@ -6,21 +5,9 @@ from rest_framework import viewsets
 from .serializers import ProductSerializer, SimilarProductsSerializer
 
 
-class SalePrice:
-    """
-    Calculates all products' sale price.
-    Then sets that value in 'sale_price' products' model field.
-    """
-    queryset = Product.objects.all()
-
-    for product in queryset:
-        product.sale_price = product.get_sale()
-        product.save()
-
-
 class ProductListViewSet(viewsets.ModelViewSet):
     """
-    Gets all products list. Descended order by id.
+    Get all products list. Descended order by id.
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -28,7 +15,8 @@ class ProductListViewSet(viewsets.ModelViewSet):
     @action(detail=True)
     def similars(self, request, pk):
         """
-        Gets 5 similar products. Url: products/id/similars.
+        Get 5 similar products. Input: product id (for which
+        you want to get similar products).
         """
         product = self.get_object()
         category = product.category

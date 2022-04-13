@@ -9,14 +9,16 @@ from ..products.serializers import SimilarProductsSerializer as CategoryProducts
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    """Returns all categories"""
+    """
+    Get all categories
+    """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
     @action(detail=True)
     def products(self, request, pk):
         """
-        Returns products of some category. Url path: categories/id/products
+        Get products of some category. Input: category id.
         """
         paginator = PageNumberPagination()
         paginator.page_size = 12
@@ -29,7 +31,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     @action(detail=True)
     def novelties(self, request, pk):
         """
-        Returns novelty products of some category. Url path: categories/id/novelties
+        Get novelty products of some category. Input: category id.
         """
         category = self.get_object()
         novelties = Product.objects.all().filter(category_id=category.id).filter(is_novelty=True).order_by('-id')[:5]
