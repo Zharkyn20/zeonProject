@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.users',
     'apps.cart',
+    'apps.about_us',
     'ckeditor',
     'ckeditor_uploader',
     'colorfield',

@@ -22,6 +22,7 @@ from zeonProject import settings
 from apps.products import urls as p_urls
 from apps.categories import urls as c_urls
 from apps.cart import urls as cart_urls
+from apps.about_us import urls as about_us_urls
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -44,6 +45,7 @@ routeLists = (
     p_urls.routeList,
     c_urls.routeList,
     cart_urls.routeList,
+    about_us_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()
