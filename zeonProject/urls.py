@@ -24,6 +24,7 @@ from apps.categories import urls as c_urls
 from apps.cart import urls as cart_urls
 from apps.about_us import urls as about_us_urls
 from apps.news import urls as news_urls
+from apps.help import urls as help_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -49,6 +50,7 @@ routeLists = (
     cart_urls.routeList,
     about_us_urls.routeList,
     news_urls.routeList,
+    help_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()

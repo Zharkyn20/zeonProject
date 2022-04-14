@@ -9,7 +9,8 @@ class Product(models.Model):
     """
     Product.
     """
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='product')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL,
+                                 null=True, related_name='product')
     name = models.CharField(max_length=100)
     sku = models.CharField(max_length=100)    # Артикул товара
     price = models.IntegerField()

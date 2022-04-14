@@ -4,7 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class News(models.Model):
     """
-    News
+    News.
     """
     image = models.ImageField(upload_to='media/news/%Y/%m/%d')
     title = models.CharField('News', max_length=100)
