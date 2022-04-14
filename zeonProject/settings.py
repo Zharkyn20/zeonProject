@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.help',
     'apps.offer',
     'apps.our_advantages',
+    'apps.slider',
     'ckeditor',
     'ckeditor_uploader',
     'colorfield',
