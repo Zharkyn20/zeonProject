@@ -23,10 +23,12 @@ class CartItem(models.Model):
     """
     Cart items.
     """
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_item', null=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE,
+                             related_name='cart_item', null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 related_name='product')
-    cart_product_image = models.ForeignKey(ProductImage, on_delete=models.CASCADE,
+    cart_product_image = models.ForeignKey(ProductImage,
+                                           on_delete=models.CASCADE,
                                            related_name='cart_product_image',
                                            default=None)
     cart_product_color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, related_name='cart_product_color')
@@ -45,7 +47,8 @@ class CartItem(models.Model):
         size_line_number = product.size_line_number
         price = product.price
         sale_price = product.sale_price
-        result = {1: size_line, 2: price, 3: sale_price, 4: size_line_number}
+        result = {1: size_line, 2: price, 3: sale_price,
+                  4: size_line_number}
         return result
 
     """
