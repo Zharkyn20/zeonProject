@@ -19,12 +19,13 @@ from django.urls import path, include, re_path
 from rest_framework import routers
 from zeonProject import settings
 # apps' urls
-from apps.products import urls as p_urls
-from apps.categories import urls as c_urls
+from apps.products import urls as product_urls
+from apps.categories import urls as category_urls
 from apps.cart import urls as cart_urls
 from apps.about_us import urls as about_us_urls
 from apps.news import urls as news_urls
 from apps.help import urls as help_urls
+from apps.offer import urls as offer_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -45,12 +46,13 @@ schema_view = get_schema_view(
 
 # getting lists of urls
 routeLists = (
-    p_urls.routeList,
-    c_urls.routeList,
+    product_urls.routeList,
+    category_urls.routeList,
     cart_urls.routeList,
     about_us_urls.routeList,
     news_urls.routeList,
     help_urls.routeList,
+    offer_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()

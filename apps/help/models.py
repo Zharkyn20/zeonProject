@@ -7,6 +7,9 @@ class Help(models.Model):
     """
     image = models.ImageField(upload_to='media/products/%Y/%m/%d')
 
+    class Meta:
+        verbose_name_plural = 'help'
+
 
 class HelpDetails(models.Model):
     """
