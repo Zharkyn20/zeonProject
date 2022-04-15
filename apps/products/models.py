@@ -52,7 +52,7 @@ class ProductImage(models.Model):
     image = models.ImageField(upload_to='media/products/%Y/%m/%d')
 
     def __str__(self):
-        return self.product.name
+        return self.image.url
 
 
 class ProductColor(models.Model):
@@ -67,4 +67,5 @@ class ProductColor(models.Model):
             raise ValidationError("No more than 8 images per item")
 
     def __str__(self):
-        return f"{self.color} - {self.product}"
+        return f"{self.product} {self.color}"
+

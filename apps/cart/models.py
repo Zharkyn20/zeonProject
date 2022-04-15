@@ -1,6 +1,8 @@
+from colorfield.fields import ColorField
 from django.db import models
 from django.contrib.auth.models import User
 from ..products.models import Product, ProductColor, ProductImage
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Cart(models.Model):
@@ -9,14 +11,30 @@ class Cart(models.Model):
     function may be added in the future versions).
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    size_line_number = models.IntegerField()
-    products_quantity = models.IntegerField()
-    total_price = models.IntegerField()
-    sale = models.IntegerField()
-    total_price_after_sale = models.IntegerField()
+    size_line_number = models.IntegerField(null=True)
+    products_quantity = models.IntegerField(null=True)
+    total_price = models.IntegerField(null=True)
+    sale = models.IntegerField(null=True)
+    total_price_after_sale = models.IntegerField(null=True)
 
     def __str__(self):
         return self.user.username
+
+    def save(self):
+        cart_item = CartItem.objects.filter(cart_id=self.id)
+        self.size_line_number = cart_item.count()
+        result = {1: 0, 2: 0, 3: 0, 4: 0}
+        for item in cart_item:
+            product_quantity = item.size_line_number * item.quantity
+            result[1] += product_quantity
+            result[2] += item.price * product_quantity
+            result[3] += (item.price - item.sale_price) * product_quantity
+            result[4] += item.sale_price * product_quantity
+        self.products_quantity = result[1]
+        self.total_price = result[2]
+        self.sale = result[3]
+        self.total_price_after_sale = result[4]
+        super(Cart, self).save()
 
 
 class CartItem(models.Model):
@@ -27,16 +45,13 @@ class CartItem(models.Model):
                              related_name='cart_item', null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 related_name='product')
-    cart_product_image = models.ForeignKey(ProductImage,
-                                           on_delete=models.CASCADE,
-                                           related_name='cart_product_image',
-                                           default=None)
+    image = models.CharField(max_length=100)
     cart_product_color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, related_name='cart_product_color')
     size_line = models.CharField(max_length=150)
     size_line_number = models.IntegerField()
     price = models.IntegerField(null=True)
     sale_price = models.IntegerField('Цена после скидки', blank=True, default=0)
-    quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
 
     """
     Get Product's and assigns to cart item's attributes.
@@ -47,8 +62,9 @@ class CartItem(models.Model):
         size_line_number = product.size_line_number
         price = product.price
         sale_price = product.sale_price
+        image = product.images.first()
         result = {1: size_line, 2: price, 3: sale_price,
-                  4: size_line_number}
+                  4: size_line_number, 5: image}
         return result
 
     """
@@ -60,6 +76,7 @@ class CartItem(models.Model):
         self.price = product[2]
         self.sale_price = product[3]
         self.size_line_number = product[4]
+        self.image = product[5]
         super(CartItem, self).save()
 
     def __str__(self):

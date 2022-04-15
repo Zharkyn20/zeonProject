@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import CartSerializer, CartItemSerializer, OrderCartProductsSerializer
+from .serializers import CartSerializer,\
+    CartItemSerializer, OrderCartSerializer, \
+    CartItemItemSerializer
 from .models import CartItem, Cart
 
 
@@ -28,26 +30,20 @@ class CartViewSet(viewsets.ModelViewSet):
         Get order information of some cart. Input: cart id.
         """
         cart = self.get_object()
-        products = CartItem.objects.filter(cart_id=cart)
-        cart.size_line_number = products.count()
-        products_total_quantity = 0
-        products_total_price = 0
-        products_sale_difference = 0
-        total_price_after_sale = 0
-        for product in products:
-            product_quantity = product.size_line_number * product.quantity
-            products_total_quantity += product_quantity
-            products_total_price += product_quantity * product.price
-            products_sale_difference += (product.price - product.sale_price) \
-                                        * product.quantity
-            total_price_after_sale += product.sale_price * product_quantity
-        cart.products_quantity = products_total_quantity
-        cart.products_quantity = products_total_quantity
-        cart.total_price = products_total_price
-        cart.sale = products_sale_difference
-        cart.total_price_after_sale = total_price_after_sale
-        serializer = OrderCartProductsSerializer(cart)
+        serializer = OrderCartSerializer(cart)
         return Response(serializer.data)
+
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_classes = {
+        'list': CartItemSerializer,
+        'create': CartItemItemSerializer
+    }
+    default_serializer_class = CartItemSerializer  # Your default serializer
+
+    def get_serializer_class(self):
+        return self.serializer_classes.get(self.action, self.default_serializer_class)
 
 
 
