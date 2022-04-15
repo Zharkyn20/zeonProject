@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from .serializers import CategorySerializer
 from ..products.models import Product
 from rest_framework.response import Response
-from .service import PageNumberPagination
+from .service import PaginationCategories, PageNumberPagination
 from ..products.serializers import SimilarProductsSerializer as CategoryProductsSerializer
 
 
@@ -14,6 +14,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    pagination_class = PaginationCategories
 
     @action(detail=True)
     def products(self, request, pk):
@@ -24,7 +25,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         paginator.page_size = 12
         category = self.get_object()
         products = Product.objects.all().filter(category_id=category.id)
-        result = paginator.paginate_queryset(products, request)
+        result = paginator.paginate_queryset(products, self.request)
         serializer = CategoryProductsSerializer(result, many=True)
         return paginator.get_paginated_response(serializer.data)
 

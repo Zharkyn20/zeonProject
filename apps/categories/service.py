@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
 
 
-class PaginationCategoryProducts(PageNumberPagination):
-    page_size = 12
+class PaginationCategories(PageNumberPagination):
+    page_size = 8
