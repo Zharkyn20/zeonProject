@@ -24,6 +24,7 @@ class Product(models.Model):
     is_best_seller = models.BooleanField(default=False)
     is_novelty = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False, blank=True)
+    image = models.ImageField(blank=True, upload_to='media/products/%Y/%m/%d')
 
     class Meta:
         ordering = ('-id',)
@@ -50,10 +51,6 @@ class ProductImage(models.Model):
     """
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE, null=True, related_name='images')
     image = models.ImageField(upload_to='media/products/%Y/%m/%d')
-
-    def clean(self):
-        if len(ProductImage.objects.filter(product=self.product)) >= 8:
-            raise ValidationError("No more than 8 images per item")
 
     def __str__(self):
         return self.product.name

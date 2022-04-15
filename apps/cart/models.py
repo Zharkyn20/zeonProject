@@ -8,7 +8,7 @@ class Cart(models.Model):
     Cart. One user could have only one cart. No cart without user (this
     function may be added in the future versions).
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     size_line_number = models.IntegerField()
     products_quantity = models.IntegerField()
     total_price = models.IntegerField()

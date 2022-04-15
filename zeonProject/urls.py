@@ -26,6 +26,7 @@ from apps.about_us import urls as about_us_urls
 from apps.news import urls as news_urls
 from apps.help import urls as help_urls
 from apps.offer import urls as offer_urls
+from apps.users import urls as user_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -33,9 +34,9 @@ from drf_yasg import openapi
 # Swagger
 schema_view = get_schema_view(
     openapi.Info(
-        title="Jaseci API",
+        title="Zeon Store API",
         default_version='v1',
-        description="Welcome to the world of Jaseci",
+        description="Zeon Store API list",
         terms_of_service="https://www.jaseci.org",
         contact=openapi.Contact(email="jason@jaseci.org"),
         license=openapi.License(name="Awesome IP"),
@@ -53,6 +54,7 @@ routeLists = (
     news_urls.routeList,
     help_urls.routeList,
     offer_urls.routeList,
+    user_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()
