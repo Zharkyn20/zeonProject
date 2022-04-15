@@ -10,6 +10,9 @@ class Help(models.Model):
     class Meta:
         verbose_name_plural = 'help'
 
+    def __str__(self):
+        return "Help"
+
 
 class HelpDetails(models.Model):
     """

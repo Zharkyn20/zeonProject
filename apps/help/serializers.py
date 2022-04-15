@@ -13,4 +13,4 @@ class HelpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Help
-        fields = '__all__'
+        fields = ('help', 'image')
