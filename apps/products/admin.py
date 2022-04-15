@@ -2,19 +2,21 @@ from django.contrib import admin
 from .models import Product, ProductImage, ProductColor
 
 
-class ProductImageAdmin(admin.StackedInline):
+class ProductImageInline(admin.TabularInline):
     model = ProductImage
+    max_num = 8
 
 
-class ProductColorAdmin(admin.StackedInline):
+class ProductColorInline(admin.TabularInline):
     model = ProductColor
+    max_num = 8
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    exclude = ['sale_price', 'is_favorite']
+    readonly_fields = ['sale_price', 'is_favorite']
     # Color and Image Fields for product model.
-    inlines = [ProductImageAdmin, ProductColorAdmin]
+    inlines = [ProductImageInline, ProductColorInline]
 
     class Meta:
         model = Product

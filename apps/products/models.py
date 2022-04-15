@@ -24,7 +24,6 @@ class Product(models.Model):
     is_best_seller = models.BooleanField(default=False)
     is_novelty = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False, blank=True)
-    image = models.ImageField(blank=True, upload_to='media/products/%Y/%m/%d')
 
     class Meta:
         ordering = ('-id',)
