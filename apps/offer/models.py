@@ -11,3 +11,6 @@ class Offer(models.Model):
 
     class Meta:
         verbose_name_plural = 'offer'
+
+    def __str__(self):
+        return self.title
