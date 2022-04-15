@@ -3,8 +3,9 @@ from .models import AboutUs, AboutUsImage
 from . import models
 
 
-class AboutUsImageAdmin(admin.StackedInline):
+class AboutUsImageAdmin(admin.TabularInline):
     model = AboutUsImage
+    max_num = 3
 
 
 @admin.register(AboutUs)

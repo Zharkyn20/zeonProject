@@ -46,7 +46,8 @@ class CartItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 related_name='product')
     image = models.CharField(max_length=100)
-    cart_product_color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, related_name='cart_product_color')
+    cart_product_color = models.ForeignKey(ProductColor, on_delete=models.CASCADE,
+                                           related_name='cart_product_color')
     size_line = models.CharField(max_length=150)
     size_line_number = models.IntegerField()
     price = models.IntegerField(null=True)

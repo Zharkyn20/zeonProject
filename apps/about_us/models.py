@@ -11,6 +11,9 @@ class AboutUs(models.Model):
     title = models.CharField('About us', max_length=50)
     description = RichTextUploadingField(blank=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name_plural = 'about us'
 
@@ -24,9 +27,5 @@ class AboutUsImage(models.Model):
                               null=True, related_name='image')
     image = models.ImageField(upload_to='media/about_us/%Y/%m/%d')
 
-    def clean(self):
-        if len(AboutUsImage.objects.filter(about=self.about)) >= 3:
-            raise ValidationError("No more than 3 images per item")
-
     def __str__(self):
-        return self.about.title
+        return self.image.url
