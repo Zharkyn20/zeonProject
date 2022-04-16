@@ -14,7 +14,8 @@ class ProductColorInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    readonly_fields = ['sale_price', 'is_favorite']
+    exclude = ['is_favorite']
+    readonly_fields = ['sale_price']
     # Color and Image Fields for product model.
     inlines = [ProductImageInline, ProductColorInline]
 

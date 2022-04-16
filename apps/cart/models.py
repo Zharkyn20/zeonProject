@@ -1,13 +1,21 @@
-from colorfield.fields import ColorField
 from django.db import models
-from django.contrib.auth.models import User
+from ruamel import yaml
 from ..products.models import Product, ProductColor, ProductImage
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class StatusChoice(models.TextChoices):
+    NEW = u'N', 'New'
+    ORDERED = u'O', 'Ordered'
+    CANCELLED = u'C', 'Cancelled'
 
 
 class Cart(models.Model):
     """
-    Cart. One user could have only one cart. No cart without user (this
+    Cart. One user could have only one cart. No cart without user! (this
     function may be added in the future versions).
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -16,11 +24,28 @@ class Cart(models.Model):
     total_price = models.IntegerField(null=True)
     sale = models.IntegerField(null=True)
     total_price_after_sale = models.IntegerField(null=True)
+    order_date = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, choices=StatusChoice.choices,
+                              default=StatusChoice.NEW)
 
     def __str__(self):
         return self.user.username
 
-    def save(self):
+    def user_details(self):
+        result = {
+            'Last name': self.user.last_name,
+            'Email address': self.user.email,
+            'Phone number': str(self.user.phone),
+            'Country': self.user.country,
+            'City': self.user.city
+        }
+        return yaml.dump(result, default_flow_style=False)
+
+    def search_fields(self):
+        return self.user.username, self.user.phone, \
+               self.user.last_name, self.user.email
+
+    def save(self, *args, **kwargs):
         cart_item = CartItem.objects.filter(cart_id=self.id)
         self.size_line_number = cart_item.count()
         result = {1: 0, 2: 0, 3: 0, 4: 0}
@@ -57,6 +82,7 @@ class CartItem(models.Model):
     """
     Get Product's and assigns to cart item's attributes.
     """
+
     def get_product_params(self):
         product = Product.objects.get(pk=self.product_id)
         size_line = product.size_line
@@ -71,6 +97,7 @@ class CartItem(models.Model):
     """
     Saves cart item's assigned attributes.
     """
+
     def save(self, *args, **kwargs):
         product = self.get_product_params()
         self.size_line = product[1]

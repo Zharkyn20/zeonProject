@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps',
     'apps.categories',
     'apps.products',
-    'apps.users',
+    'apps.favorites',
     'apps.cart',
     'apps.about_us',
     'apps.news',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'apps.offer',
     'apps.our_advantages',
     'apps.slider',
+    'accounts',
     'ckeditor',
     'ckeditor_uploader',
     'colorfield',
@@ -71,8 +73,7 @@ ROOT_URLCONF = 'zeonProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -149,11 +150,13 @@ MEDIA_ROOT = 'media/'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+    # or allow read-only access for unauthenticated favorites.
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-),
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    # 'PAGE_SIZE': 8,
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

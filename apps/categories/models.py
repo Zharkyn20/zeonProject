@@ -5,7 +5,7 @@ class Category(models.Model):
     """
     Category model.
     """
-    name = models.CharField('Category name', max_length= 50)
+    name = models.CharField('Category name', max_length=150)
     image = models.ImageField(upload_to='media/')
 
     def __str__(self):
@@ -14,5 +14,3 @@ class Category(models.Model):
     class Meta:
         ordering = ('-id',)
         verbose_name_plural = 'categories'
-
-

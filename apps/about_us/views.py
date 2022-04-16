@@ -9,4 +9,3 @@ class AboutUsViewSet(viewsets.ModelViewSet):
     """
     queryset = AboutUs.objects.all()
     serializer_class = AboutUsSerializer
-

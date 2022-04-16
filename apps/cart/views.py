@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import CartSerializer,\
     CartItemSerializer, OrderCartSerializer, \
-    CartItemItemSerializer
+    PostCartItemSerializer
 from .models import CartItem, Cart
 
 
@@ -38,13 +38,10 @@ class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
     serializer_classes = {
         'list': CartItemSerializer,
-        'create': CartItemItemSerializer
+        'create': PostCartItemSerializer,
     }
     default_serializer_class = CartItemSerializer  # Your default serializer
 
     def get_serializer_class(self):
         return self.serializer_classes.get(self.action,
                                            self.default_serializer_class)
-
-
-

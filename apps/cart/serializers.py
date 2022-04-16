@@ -27,8 +27,9 @@ class OrderCartSerializer(serializers.ModelSerializer):
                             'sale', 'total_price_after_sale')
 
 
-class CartItemItemSerializer(serializers.ModelSerializer):
+class PostCartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
-        read_only_fields = ('size_line', 'price', 'sale_price', 'size_line_number', 'image')
+        read_only_fields = ('size_line', 'price', 'sale_price',
+                            'size_line_number', 'image')

@@ -3,19 +3,16 @@ from .models import Cart, CartItem
 
 
 class CartItemAdmin(admin.StackedInline):
-    # These fields would be added by already existing product attributes.
-    exclude = ['size_line', 'price', 'sale_price',
-               'size_line_number', 'image']
+    readonly_fields = [field.name for field in CartItem._meta.fields
+                       if not field.name == 'size_line_number']
+    exclude = ['size_line_number']
     model = CartItem
 
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    # These fields would be added by already existing product attributes.
-    exclude = ['size_line_number', 'products_quantity',
-               'total_price', 'sale', 'total_price_after_sale']
-    # Product chooser for cart.
+    readonly_fields = [field.name for field in Cart._meta.fields]
+    readonly_fields += ['user_details']
+    list_display = [field.name for field in Cart._meta.fields]
     inlines = [CartItemAdmin]
-
-    class Meta:
-        model = Cart
+    search_fields = ['user__username', 'user__last_name', 'user__email', 'user__phone']

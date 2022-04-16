@@ -26,7 +26,8 @@ from apps.about_us import urls as about_us_urls
 from apps.news import urls as news_urls
 from apps.help import urls as help_urls
 from apps.offer import urls as offer_urls
-from apps.users import urls as user_urls
+from apps.favorites import urls as user_urls
+from accounts import urls as customers_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -55,6 +56,7 @@ routeLists = (
     help_urls.routeList,
     offer_urls.routeList,
     user_urls.routeList,
+    customers_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()
@@ -70,6 +72,6 @@ urlpatterns = [
          name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('', include(router.urls)), # Api Root
+    path('', include(router.urls)),  # Api Root
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

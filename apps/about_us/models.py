@@ -1,9 +1,7 @@
-from django.core.exceptions import ValidationError
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 
-# Create your models here.
 class AboutUs(models.Model):
     """
     About Us.
