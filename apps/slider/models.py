@@ -16,4 +16,4 @@ class Slider(models.Model):
         super(Slider, self).save()
 
     def __str__(self):
-        return str(self.image)
+        return self.id

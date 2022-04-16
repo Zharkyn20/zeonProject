@@ -43,7 +43,8 @@ class CartItemViewSet(viewsets.ModelViewSet):
     default_serializer_class = CartItemSerializer  # Your default serializer
 
     def get_serializer_class(self):
-        return self.serializer_classes.get(self.action, self.default_serializer_class)
+        return self.serializer_classes.get(self.action,
+                                           self.default_serializer_class)
 
 
 

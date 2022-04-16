@@ -13,9 +13,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserFavoritesSerializer(serializers.ModelSerializer):
+    product = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    user = serializers.SlugRelatedField(slug_field='username', read_only=True)
     class Meta:
         model = Favorite
-        fields = ('user', 'product')
+        fields = '__all__'
+
+
+class UserFavoritesPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = '__all__'
 
 
 class UserFavoritesProductsSerializer(serializers.ModelSerializer):

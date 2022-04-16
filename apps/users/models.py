@@ -9,7 +9,7 @@ class Favorite(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 related_name='favorite')
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         Save 'is favorite' checkbox as True, when product added
         to favorites.
@@ -21,4 +21,3 @@ class Favorite(models.Model):
 
     def __str__(self):
         return self.product.name
-
