@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SliderConfig(AppConfig):
+class MainPageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.slider'
+    name = 'apps.main_page'

@@ -28,6 +28,7 @@ from apps.help import urls as help_urls
 from apps.offer import urls as offer_urls
 from apps.favorites import urls as user_urls
 from accounts import urls as customers_urls
+from apps.main_page import urls as mp_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -57,6 +58,7 @@ routeLists = (
     offer_urls.routeList,
     user_urls.routeList,
     customers_urls.routeList,
+    mp_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()

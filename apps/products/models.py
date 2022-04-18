@@ -48,7 +48,8 @@ class ProductImage(models.Model):
     """
     Product images setting class.
     """
-    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE, null=True, related_name='images')
+    product = models.ForeignKey(Product, default=None,
+                                on_delete=models.CASCADE, null=True, related_name='images')
     image = models.ImageField(upload_to='media/products/%Y/%m/%d')
 
     def __str__(self):

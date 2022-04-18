@@ -1,6 +1,33 @@
 from django.db import models
 from .validators import validate_file_extension
 
+# Create your models here.
+class MainPage(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Main Page'
+
+    def __str__(self):
+        return 'Main Page'
+
+
+class Slider(models.Model):
+    """
+    Slider.
+    """
+    image = models.ImageField(upload_to='media/slider/%Y/%m/%d')
+    url = models.CharField(max_length=150)
+
+    class Meta:
+        verbose_name_plural = 'slider'
+
+    def save(self):
+        self.url = self.image.url
+        super(Slider, self).save()
+
+    def __str__(self):
+        return str(self.id)
+
 
 class OurAdvantages(models.Model):
     """
