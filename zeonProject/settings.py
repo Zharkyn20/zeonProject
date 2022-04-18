@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-nsv)1htg1$!i-2gr5xi*))bcp)4y8+!*5(stn@ux#pvb_7y222
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -88,7 +86,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'zeonProject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -98,7 +95,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -118,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -129,7 +124,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -142,11 +136,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media/'
-
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -156,7 +148,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    )
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+SWAGGER_SETTINGS = {
+    'JSON_EDITOR': True,
+}
