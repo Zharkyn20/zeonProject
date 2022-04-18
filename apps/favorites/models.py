@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User, AnonymousUser
+from django.contrib.auth.models import AbstractUser, User
 from ..products.models import Product
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 '''

@@ -2,9 +2,9 @@ from rest_framework.decorators import action
 from .models import Category
 from rest_framework import viewsets
 from .serializers import CategorySerializer
-from ..products.models import Product
 from rest_framework.response import Response
 from .service import PaginationCategories, PageNumberPagination
+from ..products.models import Product
 from ..products.serializers import SimilarProductsSerializer as CategoryProductsSerializer
 
 

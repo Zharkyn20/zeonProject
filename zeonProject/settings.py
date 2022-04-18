@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'apps.floating_button',
     'apps.main_page',
+    'apps.footer',
     'ckeditor',
     'ckeditor_uploader',
     'colorfield',

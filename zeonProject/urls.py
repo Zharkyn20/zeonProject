@@ -30,6 +30,7 @@ from apps.favorites import urls as user_urls
 from accounts import urls as customers_urls
 from apps.main_page import urls as mp_urls
 from apps.floating_button import urls as fb_urls
+from apps.footer import urls as footer_urls
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -61,6 +62,7 @@ routeLists = (
     customers_urls.routeList,
     mp_urls.routeList,
     fb_urls.routeList,
+    footer_urls.routeList,
 )
 # Registering all urls from apps
 router = routers.DefaultRouter()

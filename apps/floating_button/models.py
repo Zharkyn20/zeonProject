@@ -25,7 +25,8 @@ class FloatingButton(models.Model):
 class Callback(models.Model):
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=150)
-    handle_date = models.DateTimeField(auto_now=True)
+    handle_date = models.DateTimeField(auto_now_add=True)
+    call_date = models.DateTimeField(auto_now=True)
     handle_type = models.CharField(max_length=1, choices=CallbackChoice.choices,
                                    default=CallbackChoice.CALLBACK)
     is_called = models.CharField(max_length=1, choices=CallStatusChoice.choices,

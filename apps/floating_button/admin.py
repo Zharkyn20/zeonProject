@@ -19,6 +19,9 @@ class AboutUsAdmin(admin.ModelAdmin):
 
 @admin.register(Callback)
 class Callback(admin.ModelAdmin):
-    readonly_fields = [field.name for field in Callback._meta.fields]
+    fields = [field.name for field in Callback._meta.fields]
+    readonly_fields = [field.name for field in Callback._meta.fields
+                       if not field.name == 'is_called']
+    list_display = ['name', 'handle_date', 'is_called']
     search_fields = ['phone', 'name']
     list_filter = ('is_called',)
