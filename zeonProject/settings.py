@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.help',
     'apps.offer',
     'accounts',
+    'apps.floating_button',
     'apps.main_page',
     'ckeditor',
     'ckeditor_uploader',
