@@ -1,6 +1,7 @@
 from django.db import models
 from .validators import validate_file_extension
 
+
 # Create your models here.
 class MainPage(models.Model):
 
@@ -21,12 +22,8 @@ class Slider(models.Model):
     class Meta:
         verbose_name_plural = 'slider'
 
-    def save(self):
-        self.url = self.image.url
-        super(Slider, self).save()
-
     def __str__(self):
-        return str(self.id)
+        return self.url
 
 
 class OurAdvantages(models.Model):
