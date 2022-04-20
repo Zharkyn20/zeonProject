@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Footer, Contact
+from django.utils.html import format_html
 
 
 class ContactAdmin(admin.TabularInline):
@@ -7,7 +8,7 @@ class ContactAdmin(admin.TabularInline):
 
 
 @admin.register(Footer)
-class CartAdmin(admin.ModelAdmin):
+class FooterAdmin(admin.ModelAdmin):
     inlines = [ContactAdmin]
 
     def has_add_permission(self, request):
@@ -17,6 +18,16 @@ class CartAdmin(admin.ModelAdmin):
         if has_add and Footer.objects.exists():
             has_add = False
         return has_add
+
+    def icon_tag(self, obj):
+        return format_html('<img src="{url}" width="{width}" height={height}/>'.format(
+            url=obj.icon.url,
+            width=150,
+            height=150))
+
+    icon_tag.short_description = 'Icon'
+
+    readonly_fields = ['icon_tag', ]
 
     class Meta:
         model = Footer
