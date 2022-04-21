@@ -71,9 +71,5 @@ class ProductColor(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE, related_name='colors')
     color = ColorField(default='#FF0000')
 
-    def clean(self):
-        if len(ProductColor.objects.filter(product=self.product)) >= 8:
-            raise ValidationError("No more than 8 images per item")
-
     def __str__(self):
         return f"{self.product} {self.color}"

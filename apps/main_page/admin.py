@@ -19,4 +19,5 @@ class SliderAdmin(admin.ModelAdmin):
     class Meta:
         model = Slider
 
+
 admin.site.register(OurAdvantages)
